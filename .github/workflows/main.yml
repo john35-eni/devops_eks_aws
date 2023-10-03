@@ -34,6 +34,7 @@ jobs:
           REPOSITORY: devops/john
           IMAGE_TAG: 1.1
       run: |
+          # Suppression de l'ancienne image ECR (remplacez l'ID de l'image par le bon)
           aws ecr batch-check-layer-availability --repository-name $REPOSITORY --image-ids imageDigest=sha256:ef1f34c15840c37fdc65b2c1bc7ecb1f2b247c3b09f1f85e9684dafb12731b15
           aws ecr batch-delete-image --repository-name $REPOSITORY --image-ids imageDigest=sha256:ef1f34c15840c37fdc65b2c1bc7ecb1f2b247c3b09f1f85e9684dafb12731b15
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
