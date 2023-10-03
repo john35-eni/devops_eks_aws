@@ -19,7 +19,7 @@ const ENV = 'DEV';
 const app = express();
 app.get('/', (req, res) => {
   res.statusCode = 200;
-  const msg = 'My first deployment on EKS';
+  const msg = 'My first update deployment on EKS';
   res.send(getPage(msg));
 });
 
