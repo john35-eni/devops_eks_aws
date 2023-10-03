@@ -34,6 +34,10 @@ jobs:
           REPOSITORY: devops/john
           IMAGE_TAG: 1.1
       run: |
+          # Obtenez l'identifiant unique de l'image que vous souhaitez supprimer (par exemple, en utilisant une requête AWS CLI)
+          IMAGE_DIGEST=$(aws ecr-public list-images --repository-name $REPOSITORY --query 'imageIds[0].imageDigest' --output text)
+          # Supprimez l'image du registre ECR
+          aws ecr-public batch-delete-image --repository-name $REPOSITORY --image-ids imageDigest=$IMAGE_DIGEST
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
           
