@@ -36,7 +36,7 @@ jobs:
           
       - name: Delete Previous Docker Image from ECR
         run: |
-          aws ecr-public batch-check-layer-availability --repository-name devops/john --image-digests $(aws ecr-public list-images --repository-name devops/john --query 'imageDetails[*].imageDigest' --output json) --output table | grep devops/john | awk '{print $1}' | xargs -I {} aws ecr-public batch-delete-image --repository-name devops/john --image-ids imageDigest={}
+          aws ecr batch-check-layer-availability --repository-name devops/john --image-digests $(aws ecr list-images --repository-name devops/john --query 'imageDetails[*].imageDigest' --output json) --output table | grep devops/john | awk '{print $1}' | xargs -I {} aws ecr-public batch-delete-image --repository-name devops/john --image-ids imageDigest={}
       
       - name: Build, tag, and push docker image to Amazon ECR Public
         env:
